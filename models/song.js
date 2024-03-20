@@ -15,7 +15,7 @@ const SongSchema = new Schema({
   },
   available: { type: Number, required: true },
   price: { type: Number, required: true },
-  genre: [{ type: Schema.Types.ObjectId, ref: "Genre" }],
+  genre: [{ type: Schema.Types.ObjectId, ref: "Genre", required: true }],
 });
 
 SongSchema.virtual("url").get(function () {

@@ -5,9 +5,9 @@ const { Schema } = mongoose;
 const AuthorSchema = new Schema({
   name: { type: String, minLength: 5, maxLength: 30, required: true },
   featured: { type: String, minLength: 5, maxLength: 30, required: true },
-  date_of_birth: { type: Date },
-  single: { type: Boolean },
-  socials: { type: Boolean },
+  date_of_birth: { type: Date, required: true },
+  single: { type: Boolean, required: true },
+  socials: { type: Boolean, required: true },
 });
 
 // if author doesn't have name return empty string
