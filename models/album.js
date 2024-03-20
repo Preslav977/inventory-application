@@ -11,6 +11,7 @@ const AlbumSchema = new Schema({
     type: String,
     required: true,
     enum: ["Available", "Not Available", "Coming Soon", "Reserved"],
+    default: "Coming Soon",
   },
 });
 
