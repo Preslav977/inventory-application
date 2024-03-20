@@ -13,6 +13,8 @@ const SongSchema = new Schema({
     maxLength: 20,
     required: true,
   },
+  available: { type: Number, required: true },
+  price: { type: Number, required: true },
   genre: [{ type: Schema.Types.ObjectId, ref: "Genre" }],
 });
 
