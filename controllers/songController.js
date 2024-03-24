@@ -1,8 +1,27 @@
 const asyncHandler = require("express-async-handler");
 const Song = require("../models/song");
+const Author = require("../models/author");
+const Genre = require("../models/genre");
+const Album = require("../models/album");
 
 exports.index = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Site Home Page");
+  const [numSongs, numAlbums, numAvailableAlbums, numAuthors, numGenres] =
+    await Promise.all([
+      Song.countDocuments({}).exec(),
+      Album.countDocuments({}).exec(),
+      Album.countDocuments({ status: "Available" }).exec(),
+      Author.countDocuments({}).exec(),
+      Genre.countDocuments({}).exec(),
+    ]);
+
+  res.render("index", {
+    title: "Music Store Home",
+    song_count: numSongs,
+    album_count: numAlbums,
+    album_available_count: numAvailableAlbums,
+    author_count: numAuthors,
+    genre_count: numGenres,
+  });
 });
 
 exports.song_list = asyncHandler(async (req, res, next) => {

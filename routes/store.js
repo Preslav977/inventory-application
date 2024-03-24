@@ -72,11 +72,11 @@ router.post("/album/create", album_controller.album_create_post);
 
 router.get("/album/:id/delete", album_controller.album_delete_get);
 
-router.get("/album/:id/delete", album_controller.album_delete_post);
+router.post("/album/:id/delete", album_controller.album_delete_post);
 
-router.get("/album/:id/update", album_controller.song_update_get);
+router.get("/album/:id/update", album_controller.album_update_get);
 
-router.get("/album/:id/update", album_controller.album_update_post);
+router.post("/album/:id/update", album_controller.album_update_post);
 
 router.get("/album/:id", album_controller.album_detail);
 
