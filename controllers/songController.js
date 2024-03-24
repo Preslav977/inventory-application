@@ -25,7 +25,7 @@ exports.index = asyncHandler(async (req, res, next) => {
 });
 
 exports.song_list = asyncHandler(async (req, res, next) => {
-  const allSongs = await Song.find({}, "title author")
+  const allSongs = await Song.find({}, "title author channel_released")
     .sort({ title: 1 })
     .populate("author")
     .exec();

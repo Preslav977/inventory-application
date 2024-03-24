@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { DateTime } = require("luxon");
 
 const { Schema } = mongoose;
 
@@ -17,6 +18,12 @@ const AlbumSchema = new Schema({
 
 AlbumSchema.virtual("url").get(function () {
   return `/store/album/${this._id}`;
+});
+
+AlbumSchema.virtual("date_released_formatted").get(function () {
+  return DateTime.fromJSDate(this.date_released).toLocaleString(
+    DateTime.DATETIME_MED,
+  );
 });
 
 module.exports = mongoose.model("Album", AlbumSchema);
