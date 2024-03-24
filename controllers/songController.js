@@ -25,7 +25,12 @@ exports.index = asyncHandler(async (req, res, next) => {
 });
 
 exports.song_list = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Song List");
+  const allSongs = await Song.find({}, "title author")
+    .sort({ title: 1 })
+    .populate("author")
+    .exec();
+
+  res.render("song_list", { title: "Song List", song_list: allSongs });
 });
 
 exports.song_detail = asyncHandler(async (req, res, next) => {
