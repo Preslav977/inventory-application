@@ -7,7 +7,8 @@ block content
         ul
             each val in album_list
                 li
-                    a(href=val.url) #{val.name} (#{val.date_released_formatted}) -&nbsp;
+                    a(href=val.url) #{val.name}
+                    |  (#{val.date_released_formatted}) -&nbsp;
                     if val.status=='Available'
                         span.text-success #{val.status}
                     else if val.status=='Coming Soon'

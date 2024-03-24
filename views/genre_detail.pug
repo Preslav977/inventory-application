@@ -1,0 +1,17 @@
+extends layout 
+
+block content 
+
+    h1 Genre: #{genre.name}
+
+    div(style='margin-left:20px; margin-top:20px')
+
+        h4 Songs 
+        if genre_songs.length 
+            dl 
+                each song in genre_songs 
+                    dt 
+                        a(href=song.url) #{song.title}
+
+        else 
+            p This genre has no songs.
