@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1= title
+
+    if album_list.length
+        ul
+            each val in album_list
+                li
+                    a(href=val.url) #{val.name} (#{val.date_released}) -&nbsp;
+                    if val.status=='Available'
+                        span.text-success #{val.status}
+                    else if val.status=='Coming Soon'
+                        span.text-danger #{val.status}
+                    else if val.status=='Reserved'
+                        span.text-warning #{val.status}
+                    else if val.status!='Available'
+                        span.text-not-success #{val.status}
+
+
+    else
+        p There are no albums in the store.
