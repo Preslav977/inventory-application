@@ -6,13 +6,24 @@ exports.album_list = asyncHandler(async (req, res, next) => {
   const allAlbums = await Album.find().exec();
 
   res.render("album_list", {
-    name: "Album List",
+    title: "Album List",
     album_list: allAlbums,
   });
 });
 
 exports.album_detail = asyncHandler(async (req, res, next) => {
-  res.send(`NOT IMPLEMENTED: Album detail: ${req.params.id}`);
+  const [album] = await Promise.all([Album.findById(req.params.id).exec()]);
+
+  if (album === null) {
+    const err = new Error("Album not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("album_detail", {
+    title: album.name,
+    album,
+  });
 });
 
 exports.album_create_get = asyncHandler(async (req, res, next) => {
