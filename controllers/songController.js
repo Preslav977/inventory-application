@@ -34,7 +34,7 @@ exports.song_list = asyncHandler(async (req, res, next) => {
 });
 
 exports.song_detail = asyncHandler(async (req, res, next) => {
-  const [song, allSongs] = await Promise.all([
+  const [song] = await Promise.all([
     Song.findById(req.params.id)
       .populate("author")
       .populate("genre")
@@ -51,7 +51,6 @@ exports.song_detail = asyncHandler(async (req, res, next) => {
   res.render("song_detail", {
     title: song.title,
     song,
-    song_list: allSongs,
   });
 });
 
