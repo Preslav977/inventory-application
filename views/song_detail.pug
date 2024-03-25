@@ -1,0 +1,34 @@
+extends layout 
+
+block content 
+
+    h1 Song Title: #{song.title}
+
+    p #[strong Author:] #{song.author.name} 
+
+    p #[strong Album:] 
+
+        each val, index in song.album 
+            a(href=val.url) #{val.name}
+            if index < song.album.length - 1
+                |,&nbsp;
+
+    p #[strong Genre:] 
+
+        each val, index in song.genre 
+            a(href=val.url) #{val.name}
+            if index < song.genre.length - 1
+                |,&nbsp;
+
+    p #[strong Song Duration:] #{song.song_duration}
+
+    p #[strong Channel Released:] #{song.channel_released}
+
+    p #[strong Date Released:] #{song.date_released}
+
+    p #[strong Available:] (Copies: #{song.available})
+
+    p #[strong Price:] #{song.price}$
+
+    div(style='margin-left:20px; margin-top: 20px')
+

@@ -24,7 +24,7 @@ router.get("/song/:id/update", song_controller.song_update_get);
 
 router.post("/song/:id/update", song_controller.song_update_post);
 
-router.get("/book/:id", song_controller.song_detail);
+router.get("/song/:id", song_controller.song_detail);
 
 router.get("/songs", song_controller.song_list);
 

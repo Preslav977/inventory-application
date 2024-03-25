@@ -34,7 +34,25 @@ exports.song_list = asyncHandler(async (req, res, next) => {
 });
 
 exports.song_detail = asyncHandler(async (req, res, next) => {
-  res.send(`NOT IMPLEMENTED: Book detail: ${req.params.id}`);
+  const [song, allSongs] = await Promise.all([
+    Song.findById(req.params.id)
+      .populate("author")
+      .populate("genre")
+      .populate("album")
+      .exec(),
+  ]);
+
+  if (song === null) {
+    const err = new Error("Song not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("song_detail", {
+    title: song.title,
+    song,
+    song_list: allSongs,
+  });
 });
 
 exports.song_create_get = asyncHandler(async (req, res, next) => {
