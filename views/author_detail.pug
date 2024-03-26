@@ -1,21 +1,19 @@
 extends layout 
 
 block content 
+    div(class='author-detail-container')
+        h1 Author: #{author.name}
+        p #[strong Date of Birth:] #{author.date_of_birth_formatted}
 
-    h1 Author: #{author.name}
-    p #{author.date_of_birth}
+        h2 Featured: #{author.featured}
 
-    div(style='margin-left:20px; margin-right: 20px')
+            h3 Songs 
 
-    h2 Featured: #{author.featured}
+            if author_songs.length 
+                p 
+                    each song in author_songs 
+                        p
+                            a(href=song.url) #{song.title}
 
-        h4 Songs 
-
-        if author_songs.length 
-            dl 
-                each song in author_songs 
-                    dt 
-                        a(href=song.url) #{song.title}
-
-        else 
-            p This author has no songs.
+            else 
+                p This author has no songs.

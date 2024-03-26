@@ -2,13 +2,15 @@ extends layout
 
 block content 
 
-    h1= title 
+    h1(class='header')= title 
     if song_list.length 
-        ul 
+        div(class='songs-grid-container')
+            //- ul 
             each song in song_list 
-                li 
+                div(class='content')
+                    img(src="" alt="") 
                     a(href=song.url) #{song.title}
-                    |  [#{song.channel_released} Release]
-                    | - #{song.author.name}
+                        |  [#{song.channel_released} Release]
+                        | - #{song.author.name}
     else 
         p There are no songs.

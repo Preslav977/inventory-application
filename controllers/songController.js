@@ -15,7 +15,7 @@ exports.index = asyncHandler(async (req, res, next) => {
     ]);
 
   res.render("index", {
-    title: "Music Store Home",
+    title: "Music Store",
     song_count: numSongs,
     album_count: numAlbums,
     album_available_count: numAvailableAlbums,

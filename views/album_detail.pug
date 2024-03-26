@@ -1,14 +1,14 @@
 extends layout 
 
 block content 
+    div(class='album-detail-container')
+        h1 Album Title: #{album.name}
 
-    h1 Album Title: #{album.name}
+        p #[strong Date Released: ] #{album.date_released_formatted}
 
-    p #[strong Date Released: ] #{album.date_released_formatted}
+        p #[strong Available: ] (Copies: #{album.available})
 
-    p #[strong Available: ] (Copies: #{album.available})
+        p #[strong Price: ] #{album.price}$ 
 
-    p #[strong Price: ] #{album.price}$ 
-
-    p #[strong Status: ] #{album.status}
+        p #[strong Status: ] #{album.status}
 

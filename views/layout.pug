@@ -6,28 +6,28 @@ html
   body
     div(class='container')
       div(class='row')
-        div(class='sub-row-container')
+        div(class='nav-container')
           block sidebar 
-            ul(class='sidebar-nav')
-              li
-                a(href='/store') Home
-              li 
-                a(href='/store/songs') All songs 
-              li 
-                a(href='/store/authors') All Authors 
-              li 
-                a(href='/store/genres') All genres 
-              li 
-                a(href='/store/albums') All albums 
-                hr
-              li 
-                a(href='/store/song/create') Create new song 
-              li 
-                a(href='/store/author/create') Create new author 
-              li 
-                a(href='/store/genre/create') Create new genre 
-              li 
-                a(href='/store/album/create') Create new album
+            div(class='sidebar-nav')
+              button(class='home-button')
+                a(href='/store') Music
+              button(class='home-button') 
+                a(href='/store/songs') Songs
+              button(class='home-button')  
+                a(href='/store/authors') Authors
+              button(class='home-button')  
+                a(href='/store/genres') Genres
+              button(class='home-button') 
+                a(href='/store/albums') Albums
+              //-   hr
+              //- li 
+              //-   a(href='/store/song/create') Create new song 
+              //- li 
+              //-   a(href='/store/author/create') Create new author 
+              //- li 
+              //-   a(href='/store/genre/create') Create new genre 
+              //- li 
+              //-   a(href='/store/album/create') Create new album
 
           div(class='column')
             block content

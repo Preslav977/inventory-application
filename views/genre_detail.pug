@@ -1,17 +1,15 @@
 extends layout 
 
 block content 
+    div(class='genre-detail-container')
+        h1 Genre: #{genre.name}
 
-    h1 Genre: #{genre.name}
+            h4 Songs 
+            if genre_songs.length 
+                p 
+                    each song in genre_songs 
+                        p 
+                            a(href=song.url) #{song.title}
 
-    div(style='margin-left:20px; margin-top:20px')
-
-        h4 Songs 
-        if genre_songs.length 
-            dl 
-                each song in genre_songs 
-                    dt 
-                        a(href=song.url) #{song.title}
-
-        else 
-            p This genre has no songs.
+            else 
+                p This genre has no songs.
