@@ -14,8 +14,8 @@ const SongSchema = new Schema({
     maxLength: 20,
     required: true,
   },
-  available: { type: Number, minLength: 1, required: true },
-  price: { type: Number, minLength: 1, required: true },
+  available: { type: Number, minLength: 1, maxLength: 20, required: true },
+  price: { type: Number, minLength: 1, maxLength: 20, required: true },
   genre: [{ type: Schema.Types.ObjectId, ref: "Genre" }],
   album: [{ type: Schema.Types.ObjectId, ref: "Album" }],
 });
