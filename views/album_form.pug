@@ -1,0 +1,30 @@
+extends layout 
+
+block content 
+
+    h1= title 
+
+    form(method='POST')
+        div(class='form-container')
+            label(for='name') Name: 
+            input#name(type='text' name='name' placeholder='We are Here' required value=(undefined === album ? '' : album.name))
+            label(for='date_released') Date released: 
+            input#date_released(type='date' name='date_released' required value=(undefined === album ? '' : album.date_released))
+            label(for='available') Available: 
+            input#available(type='number' name='available' placeholder='20' required value=(undefined === album ? '' : album.available))
+            label(for='price') Price: 
+            input#price(type='number' name='price' placeholder='7.44$' required value=(undefined === album ? '' : album.price))
+            label(for='status') Status: 
+            select#status(name="status" required)
+                option(value='') --Select a status--
+                each val in ['Available', 'Not Available', 'Coming Soon', 'Reserved']
+                    if undefined===album || album.status!=val
+                        option(value=val)= val 
+                    else 
+                        option(value=val selected)= val 
+            button(type='Submit') Submit 
+
+        if errors 
+            ul 
+                for error in errors 
+                    li!= error.msg

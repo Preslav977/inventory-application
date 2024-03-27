@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler");
+const { body, validationResult } = require("express-validator");
 const Album = require("../models/album");
 const Song = require("../models/song");
 
@@ -27,12 +28,64 @@ exports.album_detail = asyncHandler(async (req, res, next) => {
 });
 
 exports.album_create_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Album create GET");
+  const allAlbums = await Album.find().sort({ name: 1 }).exec();
+
+  res.render("album_form", {
+    title: "Create New Album",
+    albums: allAlbums,
+  });
 });
 
-exports.album_create_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Album create POST");
-});
+exports.album_create_post = [
+  body("name", "Name must be at least 5 characters and not over 30 characters")
+    .trim()
+    .isLength({ min: 5 })
+    .isLength({ max: 30 })
+    .escape(),
+  body("date_released", "Invalid date of released").isISO8601().toDate(),
+  body(
+    "available",
+    "Available must be at least 1 characters and not over 20 characters",
+  )
+    .trim()
+    .isLength({ min: 1 })
+    .isLength({ max: 20 })
+    .escape(),
+  body(
+    "price",
+    "Price must be at least 1 characters and not over 20 characters",
+  )
+    .trim()
+    .isLength({ min: 1 })
+    .isLength({ max: 20 })
+    .escape(),
+  body("status").escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    const album = new Album({
+      name: req.body.name,
+      date_released: req.body.date_released,
+      available: req.body.available,
+      price: req.body.price,
+      status: req.body.status,
+    });
+
+    if (!errors.isEmpty()) {
+      const allAlbums = await Album.find().sort({ name: 1 }).exec();
+
+      res.render("album_form", {
+        title: "Create New Album",
+        albums: allAlbums,
+        errors: errors.array(),
+      });
+    } else {
+      await album.save();
+      res.redirect(album.url);
+    }
+  }),
+];
 
 exports.album_delete_get = asyncHandler(async (req, res, next) => {
   res.send("NOT IMPLEMENTED: Album delete GET");
