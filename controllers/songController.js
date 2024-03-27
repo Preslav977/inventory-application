@@ -179,11 +179,36 @@ exports.song_create_post = [
 ];
 
 exports.song_delete_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Song delete GET");
+  const [song] = await Promise.all([
+    Song.findById(req.params.id).populate("author").populate("genre").exec(),
+  ]);
+
+  if (song === null) {
+    res.redirect("/store/songs");
+  }
+
+  res.render("song_delete", {
+    title: "Delete Book",
+    song,
+  });
 });
 
 exports.song_delete_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Song delete POST");
+  const [song] = await Promise.all([
+    Song.findById(req.params.id).populate("author").populate("genre").exec(),
+  ]);
+
+  if (song === null) {
+    res.redirect("/store/songs");
+  }
+
+  res.render("song_delete", {
+    title: "Delete Song",
+    song,
+  });
+
+  await Song.findByIdAndDelete(req.body.id);
+  res.redirect("/store/songs");
 });
 
 exports.song_update_get = asyncHandler(async (req, res, next) => {
