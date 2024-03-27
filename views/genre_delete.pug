@@ -1,0 +1,24 @@
+extends layout 
+
+block content 
+
+    h1 Delete Genre : #{genre.name}
+
+    if genre_songs.length 
+
+        p #[strong Delete the followings songs before deleting tis genre.]
+
+            h2 Songs 
+
+            dl 
+                each song in genre_songs 
+                    dt 
+                        a(href=song.url) #{song.title}
+    else 
+        p Do you really want to delete this Genre?
+
+        form(method='POST')
+            div(class='form-container')
+                input#id(type='hidden' name='id', value=genre._id)
+
+            button(type='Submit') Delete

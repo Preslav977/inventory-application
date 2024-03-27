@@ -75,11 +75,38 @@ exports.genre_create_post = [
 ];
 
 exports.genre_delete_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Genre delete GET");
+  const [genre, songsInGenre] = await Promise.all([
+    Genre.findById(req.params.id).exec(),
+    Song.find({ genre: req.params.id }, "title").exec(),
+  ]);
+
+  if (genre === null) {
+    res.redirect("/store/genres");
+  }
+
+  res.render("genre_delete", {
+    title: "Delete Genre",
+    genre,
+    genre_songs: songsInGenre,
+  });
 });
 
 exports.genre_delete_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Genre delete POST");
+  const [genre, songsInGenre] = await Promise.all([
+    Genre.findById(req.params.id).exec(),
+    Song.find({ genre: req.params.id }, "title").exec(),
+  ]);
+
+  if (songsInGenre.length > 0) {
+    res.render("genre_delete", {
+      title: "Delete Genre",
+      genre,
+      genre_songs: songsInGenre,
+    });
+  } else {
+    await Genre.findByIdAndDelete(req.body.id);
+    res.redirect("/store/genres");
+  }
 });
 
 exports.genre_update_get = asyncHandler(async (req, res, next) => {
