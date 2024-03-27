@@ -77,11 +77,38 @@ exports.author_create_post = [
 ];
 
 exports.author_delete_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Author delete GET");
+  const [author, allSongsByAuthors] = await Promise.all([
+    Author.findById(req.params.id).exec(),
+    Song.find({ author: req.params.id }, "title").exec(),
+  ]);
+
+  if (author === null) {
+    res.redirect("/store/authors");
+  }
+
+  res.render("author_delete", {
+    title: "Delete Author",
+    author,
+    author_songs: allSongsByAuthors,
+  });
 });
 
 exports.author_delete_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Author delete POST");
+  const [author, allSongsByAuthor] = await Promise.all([
+    Author.findById(req.params.id).exec(),
+    Song.find({ author: req.params.id }, "title").exec(),
+  ]);
+
+  if (allSongsByAuthor.length > 0) {
+    res.render("author_delete", {
+      title: "Delete Author",
+      author,
+      author_songs: allSongsByAuthor,
+    });
+  } else {
+    await Author.findByIdAndDelete(req.body.authorid);
+    res.redirect("/store/authors");
+  }
 });
 
 exports.author_update_get = asyncHandler(async (req, res, next) => {
