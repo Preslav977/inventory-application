@@ -88,11 +88,22 @@ exports.album_create_post = [
 ];
 
 exports.album_delete_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Album delete GET");
+  const album = await Album.findById(req.params.id).exec();
+
+  if (album === null) {
+    res.redirect("/store/albums");
+  }
+
+  res.render("album_delete", {
+    title: "Delete album",
+    album,
+  });
 });
 
 exports.album_delete_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Album delete POST");
+  await Album.findByIdAndDelete(req.body.id)
+
+  res.redirect("/store/albums")
 });
 
 exports.album_update_get = asyncHandler(async (req, res, next) => {

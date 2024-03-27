@@ -12,5 +12,7 @@ block content
 
         p #[strong Status: ] #{album.status}
 
-        p
-            a(href=album.url + '/delete') Delete Album
+    form(method='POST')
+        div(class='form-container')
+            input#id(type='hidden' name='id', value=album._id)
+        button(type='submit') Delete
