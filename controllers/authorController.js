@@ -49,7 +49,7 @@ exports.author_create_post = [
     .withMessage("Name of the vocalist must be specified"),
 
   body("date_of_birth", "Invalid date of birth")
-    .optional({ values: "falsy" })
+    // .optional({ values: "falsy" })
     .isISO8601()
     .toDate(),
 

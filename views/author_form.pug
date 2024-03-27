@@ -10,8 +10,8 @@ block content
             input#name(type='text' placeholder='Author Name (REZZ)' name='name' required value=(undefined === author ? '' : author.name))
             label(for='featured') Featured: 
             input#featured(type='text' placeholder='Vocalist Name (Laura)' name='featured' required value=(undefined === author ? '' : author.featured))
-            label(form='date_of_birth') Date of birth: 
-            input#date_of_birth(type='date' name='date_of_birth' value=(undefined === author ? '' : author.date_of_birth))
+            label(for='date_of_birth') Date of birth: 
+            input#date_of_birth(type='date' name='date_of_birth' required value=(undefined === author ? '' : author.date_of_birth))
             button(type='submit') Submit 
     if errors 
         ul 
