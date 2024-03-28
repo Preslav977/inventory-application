@@ -42,7 +42,7 @@ block content
                 option(value='' required) --Select an album--
                 for album in albums 
                     if song 
-                        if album._id===song.album._id
+                        if album._id.toString()===song.album.toString()
                             option(value=album._id selected) #{album.name}
                         else 
                             option(value=album._id) #{album.name}
