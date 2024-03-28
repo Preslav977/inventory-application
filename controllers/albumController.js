@@ -101,15 +101,69 @@ exports.album_delete_get = asyncHandler(async (req, res, next) => {
 });
 
 exports.album_delete_post = asyncHandler(async (req, res, next) => {
-  await Album.findByIdAndDelete(req.body.id)
+  await Album.findByIdAndDelete(req.body.id);
 
-  res.redirect("/store/albums")
+  res.redirect("/store/albums");
 });
 
 exports.album_update_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Album update GET");
+  const album = await Album.findById(req.params.id).exec();
+
+  if (album === null) {
+    const err = new Error("Album not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("album_form", { title: "Update Album", album });
 });
 
-exports.album_update_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Album update POST");
-});
+exports.album_update_post = [
+  body("name", "Name must be at least 5 characters and not over 30 characters")
+    .trim()
+    .isLength({ min: 5 })
+    .isLength({ max: 30 })
+    .escape(),
+  body("date_released", "Invalid date of released").isISO8601().toDate(),
+  body(
+    "available",
+    "Available must be at least 1 characters and not over 20 characters",
+  )
+    .trim()
+    .isLength({ min: 1 })
+    .isLength({ max: 20 })
+    .escape(),
+  body(
+    "price",
+    "Price must be at least 1 characters and not over 20 characters",
+  )
+    .trim()
+    .isLength({ min: 1 })
+    .isLength({ max: 20 })
+    .escape(),
+  body("status").escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    const album = new Album({
+      name: req.body.name,
+      date_released: req.body.date_released,
+      available: req.body.available,
+      price: req.body.price,
+      status: req.body.status,
+      _id: req.params.id,
+    });
+
+    if (!errors.isEmpty()) {
+      res.render("album_form", {
+        title: "Album Form",
+        album,
+        errors: errors.array(),
+      });
+    } else {
+      await Album.findByIdAndUpdate(req.params.id, album);
+      res.redirect(album.url);
+    }
+  }),
+];
