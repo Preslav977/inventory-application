@@ -9,7 +9,7 @@ block content
             input#title(type='text' placeholder='Name of the song' name='title' required value=(undefined===song ? '' : song.title))
             label(for='author') Author:
             select#author(name='author' required)
-                option(value='') --Select an author--
+                option(value='' required) --Select an author--
                 for author in authors 
                     if song 
                         if author._id.toString()===song.author._id.toString()
@@ -42,10 +42,10 @@ block content
                 option(value='' required) --Select an album--
                 for album in albums 
                     if song 
-                        if album._id.toString()===song.album._id.toString()
-                            option(value=val._id selected) #{album.name}
+                        if album._id===song.album._id
+                            option(value=album._id selected) #{album.name}
                         else 
-                            option(value=val._id) #{album.name}
+                            option(value=album._id) #{album.name}
                     else 
                         option(value=album._id) #{album.name}
             button(type='submit') Submit
