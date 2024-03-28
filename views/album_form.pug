@@ -16,7 +16,7 @@ block content
             input#price(type='number' name='price' placeholder='7.44$' required value=(undefined === album ? '' : album.price))
             label(for='status') Status: 
             select#status(name="status" required)
-                option(value='') --Select a status--
+                option(value='') Select a status
                 each val in ['Available', 'Not Available', 'Coming Soon', 'Reserved']
                     if undefined===album || album.status!=val
                         option(value=val)= val 

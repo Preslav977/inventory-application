@@ -188,7 +188,7 @@ exports.song_delete_get = asyncHandler(async (req, res, next) => {
   }
 
   res.render("song_delete", {
-    title: "Delete Book",
+    title: "Delete Song",
     song,
   });
 });
