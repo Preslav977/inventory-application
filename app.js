@@ -1,3 +1,5 @@
+require("dotenv").config();
+const nconf = require("nconf");
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
@@ -13,6 +15,11 @@ const usersRouter = require("./routes/users");
 const storeRouter = require("./routes/store");
 
 const app = express();
+
+nconf.argv().env().file({ file: "path/to/config.json" });
+
+nconf.set("database:host", "localhost");
+nconf.set("database:port", 3000);
 
 app.use(
   helmet.contentSecurityPolicy({
@@ -30,8 +37,7 @@ const limiter = RateLimit({
 app.use(limiter);
 
 mongoose.set("strictQuery", false);
-const dev_db_url =
-  "mongodb+srv://admin:22121955Bg971KEKW555@cluster0.vbzif3g.mongodb.net/inventory_application?retryWrites=true&w=majority&appName=Cluster0";
+const dev_db_url = process.env.mongoURL;
 const mongoDB = process.env.MONGODB_URL || dev_db_url;
 
 main().catch((err) => console.log(err));
