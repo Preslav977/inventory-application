@@ -32,7 +32,8 @@
 - I learned how to use a controller with GET and POST in order to read or change information on the page and how to implement CRUD operations within the controllers.
 - I learned how to create views or HTML files for each router of the controller and further solidified my knowledge of using Pug.
 - What I learned is that sanitizing and validation are used together to check if the fields are not more or less characters, which makes me required to don't let the user type anything other than what is needed for each field.
-- The last lesson I learned was how to use forms for each CRUD operation, which are basically used for each operation. \* The first objective was to create models of the databases for the music store. The author can have, for example, the first name and date of birth fields; the song title; the song duration; and the channel released.
+- The last lesson I learned was how to use forms for each CRUD operation, which are basically used for each operation.
+- The first objective was to create models of the databases for the music store. The author can have, for example, the first name and date of birth fields; the song title; the song duration; and the channel released.
 - The genres have just a name, and the albums have a title, a channel released, etc.
 - The second objective was to set the basic route path for this project. I used /store, which is appropriate for music stores, and generated the skeleton of the project with Express installed, as well as pug, which is essentially the HTML.
 - The objective was to create the database in the Mongo database using the interface, then choose the name of the database and the collection.
